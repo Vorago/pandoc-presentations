@@ -16,7 +16,8 @@ fi
 cp $1/* tmp/
 
 find tmp -name \*.md -type f -exec \
-  sh -c 'vagrant docker-run -- -o tmp/$(basename {} ".md").html -s \
+  sh -c 'docker run --name pandoc --rm=true -v $(pwd):/vagrant \
+  pandoc -o tmp/$(basename {} ".md").html -s \
   -V theme=$THEME \
   --no-highlight \
   --template=template.html \
